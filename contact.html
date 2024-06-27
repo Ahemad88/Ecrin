@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+            var formData = {
+                "name": document.getElementById("name").value,
+                "email": document.getElementById("email").value,
+                "message": document.getElementById("message").value
+            };
+            fetch("https://script.google.com/macros/s/AKfycbzN9ApzmMpj5FR7yY_St0wiGTa2Zpu-r4xZU2bfa1a_-8k0RHGEZUtvypPP5V6y_LJluQ/exec", {
+                method: "POST",
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.result == "success") {
+                    alert("Message sent successfully!");
+                } else {
+                    alert("Error sending message.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Error sending message.");
+            });
+        }
+    </script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo"><img src="ecrin1.jpg" alt="Your Logo"></a>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="contact">
+        <div class="container">
+            <h1 class="section-title">Contact Us</h1>
+            <p class="contact-description">Get in touch with us for any inquiries or feedback. Our team is ready to assist you.</p>
+            <form onsubmit="submitForm(event)" class="contact-form">
+                <div class="form-group">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Your Email</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="message" class="form-label">Your Message</label>
+                    <textarea id="message" name="message" rows="4" class="form-control" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Your Company. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
